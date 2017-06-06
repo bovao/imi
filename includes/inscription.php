@@ -38,30 +38,32 @@ function verifLongueur($champ, $longueur) {
 }
 
 
-function verifPassword($champ) {
-  global $erreurs;
-  if(!empty($_POST[$champ])) {
-    return sha1($_POST[$champ]);
-  } else {
-    $erreurs[$champ] = "Merci de remplir le champ ".$champ;
-    return NULL;
-  }
-}
+//function verifPassword($champ) {
+//  global $erreurs;
+//  if(!empty($_POST[$champ])) {
+//    return sha1($_POST[$champ]);
+//  } else {
+//    $erreurs[$champ] = "Merci de remplir le champ ".$champ;
+//    return NULL;
+//  }
+//}
 
 //---------- A REVOIR -_-"
-//function verifPassword($champ, $motdepasse) {
-//  global $erreurs;
-//  $motdepasse = $_POST['pass_confirm'];
-//  if((isset($_POST[$champ]) && !empty($_POST[$motdepasse]))){
-//        if($_POST[$champ] != $motdepasse){
-//         $erreur = 'Les 2 mots de passe sont différents.';
-//        }
-//      else{
-//        $erreurs[$champ] = "Merci de remplir le champ ".$champ;
-//        return NULL;  
-//      }
-//  return sha1(htmlentities($_POST[$champ]));  
-//}
+function verifPassword($champ, $champ2) {
+  global $erreurs;
+  if((!empty($_POST[$champ]) && !empty($_POST[$champ2]))){
+        if($_POST[$champ] != $_POST[$champ2]){
+         $erreurs[$champ] = 'Les 2 mots de passe sont différents.';
+            return false;    
+        }
+      else{
+        return sha1(htmlentities($_POST[$champ]));  
+      }
+    
+  } else {
+      $erreurs[$champ] = "Merci de remplir les deux champs mot de passe !";
+  }
+}
     
     
     
@@ -70,7 +72,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   $login = verifLongueur("login", 4);
   $mail = verifMail("mail");
   $password = verifPassword("password", "pass_confirm");
-  $pass_confirm = verifPassword("pass_confirm", "password");
   $nom = verifLongueur("nom", 4);
   $secteur = verifChampRempli("secteur");
   $niveau = verifChampRempli("niveau");
