@@ -7,7 +7,7 @@
 <div class="row entete"> 
     <a href="../index.php" class="marginleft2 white left a-custom"><i class="fa fa-sign-out fa-2x icon-logout"></i></a>
     <h1 class="h1-custom">Mon espace personnel</h1>
-    <a href="../index.php" class="marginright2 white right a-custom"><i class="fa fa-edit fa-2x icon-logout"></i></a>
+    <a href="../includes/deconnexion.php" class="marginright2 white right a-custom"><i class="fa fa-edit fa-2x icon-logout"></i></a>
 </div>
     
 <div class="technicien">

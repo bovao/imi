@@ -174,9 +174,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             
             <input <?php if(isset($erreurs['login'])) echo "class='erreur obligatoire'"; ?> type="text" name="login" value="<?php if(isset($login)) echo $login; ?>" placeholder="Votre login *"><br />
             
-            <input <?php if(isset($erreurs['password'])) echo "class='erreur obligatoire'"; ?> type="text" name="password" value="<?php if(isset($password)) echo $password; ?>" placeholder="Votre mot de passe *"><br />
+            <input <?php if(isset($erreurs['password'])) echo "class='erreur obligatoire'"; ?> type="password" name="password" value="<?php if(isset($password)) echo $password; ?>" placeholder="Votre mot de passe *"><br />
 
-            <input <?php if(isset($erreurs['pass_confirm"'])) echo "class='erreur obligatoire'"; ?> type="text" name="pass_confirm" value="<?php if(isset($pass_confirm)) echo $pass_confirm; ?>" placeholder="Confirmation mdp *"><br />
+            <input <?php if(isset($erreurs['pass_confirm"'])) echo "class='erreur obligatoire'"; ?> type="password" name="pass_confirm" value="<?php if(isset($pass_confirm)) echo $pass_confirm; ?>" placeholder="Confirmation mdp *"><br />
                         
             <span class="suite envoyer">Valider / Etape suivante</span> 
         </div>

@@ -19,14 +19,12 @@ if(isset($_POST) && !empty($_POST['login']) && !empty($_POST['motdepasse'])) {
             header("location:../technicien/taches.php");
             exit();
         }
-
-
+       
     } catch (PDOException $erreur) {
-      echo $erreur->getMessage();
-    }
+        echo $erreur->getMessage();
+        }
 }
 ?>
-
 
 
 <head>

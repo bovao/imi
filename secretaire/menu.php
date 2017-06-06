@@ -12,7 +12,7 @@
     <li><i class="fa fa-sign-out fa-2x white"></i>
         <a href="gestionUtilisateur.php">Gestion des utilisateurs</a></li>
 
-    <a href="../index.php"><i class="fa fa-sign-out fa-3x icon-logout"></i></a>
+    <a href="../includes/deconnexion.php"><i class="fa fa-sign-out fa-3x icon-logout"></i></a>
 </ul>
 
 <div class="retourligne"></div>
