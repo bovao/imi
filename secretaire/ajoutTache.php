@@ -48,7 +48,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   $descriptionTache = verifChampRempli("descriptionTache");
 
     
-if(empty($erreur)) {      
+if(empty($erreur)) {
       $sql = "INSERT INTO taches VALUES (NULL, :societe, :client, :adresse, :duree, :libelle, :secteur, :assignea, :etat, :file, :descriptionTache, NOW())";
   try {
     $req = $db->prepare($sql);
@@ -65,10 +65,11 @@ if(empty($erreur)) {
       
         $req->execute();
         header("location:tache.php?create=ok");
+        echo "<script>alert(\"Nouvelle tâche ajouté !\")</script>"; 
   } catch (PDOException $erreur) {
         echo $erreur->getMessage();
     }
-  }
+  } else {}
 }
 ?>
 
