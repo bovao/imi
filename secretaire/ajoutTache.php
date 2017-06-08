@@ -4,7 +4,6 @@
 include('menu.php');
 
 
-
 require_once("../includes/fonctions.php");
 $db = connect(); 
     

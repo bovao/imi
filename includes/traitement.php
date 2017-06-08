@@ -4,7 +4,7 @@ $db = connect();
 function getUtilisateurs($db) {
   // Code de récupération de notre liste d'utilisateurs
   // 1 - écriture de la requête SQL SELECT.
-  $sql = "SELECT id, login, mail, password, nom, secteur, niveau, rang FROM membre";
+  $sql = "SELECT * FROM membre";
   // 2 - Envoi de la requête avec la méthode try catch
   try {
     $retour["donnees"] = $db->query($sql);
