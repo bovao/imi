@@ -6,71 +6,63 @@ $db = connect();
 include('menu.php');
 
 
-function updateTache($db, $tabMembre) {
-  $sql = "UPDATE taches
-  SET id = :id, societe = :societe, client = :client, adresse = :adresse, duree = :duree, libelle = :libelle, secteur = :secteur, assignea = :assignea, etat = :etat, file = :file, descriptionTache = :descriptionTache WHERE id = :id";
-  // 2 - Envoi de la requête avec la méthode try catch
-  try {
-    $req = $db->prepare($sql);
-        $req->bindParam(':id', $tabMembre["id"], PDO::PARAM_INT);
-        $req->bindParam(':societe', $tabMembre["societe"], PDO::PARAM_STR);
-        $req->bindParam(':client',  $tabMembre["client"], PDO::PARAM_STR);
-        $req->bindParam(':adresse', $tabMembre["adresse"], PDO::PARAM_STR);
-        $req->bindParam(':duree',   $tabMembre["duree"], PDO::PARAM_STR);
-        $req->bindParam(':libelle', $tabMembre["libelle"], PDO::PARAM_STR);    
-        $req->bindParam(':secteur', $tabMembre["secteur"], PDO::PARAM_STR); 
-        $req->bindParam(':assignea',$tabMembre["assignea"], PDO::PARAM_STR);
-        $req->bindParam(':etat',  $tabMembre["etat"], PDO::PARAM_STR);
-        $req->bindParam(':file',  $tabMembre["file"], PDO::PARAM_STR);
-        $req->bindParam(':descriptionTache',  $tabMembre["descriptionTache"], PDO::PARAM_STR);
-      
-        $req->execute();
-        header("location:taches.php?modif=ok");
-        echo "<script>alert(\"Nouvelle modification effectué !\")</script>"; 
-  } catch (PDOException $erreur) {
-    echo $erreur->getMessage();
-  }
-}
-
-
 // Traitement des données du formulaire : uniquement si on rentre en POST
 if($_SERVER["REQUEST_METHOD"] == "POST") {
-
-    $societe = verifLongueur("societe", 3);
-    $client = verifLongueur("client", 3);
-    $adresse = verifLongueur("adresse", 8);
-    $duree = verifChampRempli("duree");
-    $libelle = verifLongueur("libelle", 4);
-    $secteur = verifChampRempli("secteur");
-    $assignea = verifChampRempli("assignea");
-    $etat = verifChampRempli("etat");
-    $file = verifChampRempli("file");
-    $descriptionTache = verifChampRempli("descriptionTache");
+    $id = $_GET["id"];
+      $societe = verifLongueur("societe", 3);
+      $client = verifLongueur("client", 3);
+      $adresse = verifLongueur("adresse", 8);
+      $duree = verifChampRempli("duree");
+      $libelle = verifLongueur("libelle", 4);
+      $secteur = verifChampRempli("secteur");
+      $assignea = verifChampRempli("assignea");
+      $etat = verifChampRempli("etat");
+      $file = verifChampRempli("file");
+      $descriptionTache = verifChampRempli("descriptionTache");
     
-  // Si on n'a pas d'erreur, on peut passer à la mise à jour de nos données.
-if(empty($erreur)) {
-    $modifTache = updateTache($db, $tabMembre);
-  }
-  extract($modifTache);
+    // Si on n'a pas d'erreur, on peut passer à la mise à jour de nos données.
+    if(empty($erreur)) {
+        $sql = "UPDATE taches
+        SET societe = :societe, client = :client, adresse = :adresse, duree = :duree, libelle = :libelle, secteur = :secteur, assignea = :assignea, etat = :etat, file = :file, descriptionTache = :descriptionTache WHERE id = :id";
+      try {
+        $req = $db->prepare($sql);
+            $req->bindParam(':id', $id, PDO::PARAM_INT);
+            $req->bindParam(':societe', $societe, PDO::PARAM_STR);
+            $req->bindParam(':client',  $client, PDO::PARAM_STR);
+            $req->bindParam(':adresse', $adresse, PDO::PARAM_STR);
+            $req->bindParam(':duree',   $duree, PDO::PARAM_STR);
+            $req->bindParam(':libelle', $libelle, PDO::PARAM_STR);    
+            $req->bindParam(':secteur', $secteur, PDO::PARAM_STR); 
+            $req->bindParam(':assignea',$assignea, PDO::PARAM_STR);
+            $req->bindParam(':etat',  $etat, PDO::PARAM_STR);
+            $req->bindParam(':file',  $file, PDO::PARAM_STR);
+            $req->bindParam(':descriptionTache',  $descriptionTache, PDO::PARAM_STR);
+            $req->execute();
+            header("location:modifTache.php?modif=ok");
+            echo "<script>alert(\"Nouvelle modification effectué !\")</script>"; 
+        }  catch (PDOException $erreur) {
+                echo $erreur->getMessage();
+            }
+    }
 
 } else {
   $tache = getDetailsTache($db, $_GET["id"]);
   extract($tache);
-
 }
     
-
-
 ?>
-<!--
-  $sql = "UPDATE taches
-  SET societe = :societe, client = :client, adresse = :adresse, duree = :duree, libelle = :libelle, secteur = :secteur, assignea = :assignea,
-  etat = :etat, file = :file, descriptionTache = :descriptionTache
-  WHERE id = :id";
--->
-
 
 <body>
+    
+<?php
+if(!empty($erreur)) {
+    echo "<p class='erreur'>";
+    foreach ($erreurs as $value) {
+        echo $value.'<br />';
+    }
+    echo "</p>";
+}
+?>
 
 <h1 class="custom-h1">Modifier une tâche</h1>  
 <div id="">
@@ -78,6 +70,8 @@ if(empty($erreur)) {
     <form name="formulaireModifTache" action="" method="POST" id="formAjoutTache">
 
     <div class="row">
+        
+          <input type="hidden" name="id" value="<?php echo intval($_GET["id"]); ?>">
            <input type="text" name="societe" value="<?php if(isset($societe)) echo $societe; ?>" placeholder="Société" class="custom-input" /> <!-- pseudo -->
            <input type="text" name="client" value="<?php if(isset($client)) echo $client; ?>" placeholder="Nom client" class="custom-input" /> <!-- pseudo -->
            <input type="text" name="adresse" value="<?php if(isset($adresse)) echo $adresse; ?>" placeholder="Adresse client" class="custom-input" /> <!-- pseudo -->            
