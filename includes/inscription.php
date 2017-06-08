@@ -3,69 +3,6 @@ require("fonctions.php");
 $db = connect(); 
 
 
-// Déclaration d'un tableau qui va stocker les erreurs
-$erreurs = array();
-
-function verifChampRempli($champ) {
-  global $erreurs;
-  if(!empty($_POST[$champ])) {
-    return htmlspecialchars($_POST[$champ]);
-  } else {
-    $erreurs[$champ] = "Merci de remplir le champ ".$champ;
-    return NULL;
-  }
-}
-
-
-function verifMail($champ) {
-  global $erreurs;
-  if($mail = verifChampRempli($champ)) {
-    if(!filter_var($mail, FILTER_VALIDATE_EMAIL)) {
-      $erreurs[$champ] = "L'adresse email du champ ".$champ." n'est pas valide";
-    }
-    return $mail;
-  }
-}
-
-function verifLongueur($champ, $longueur) {
-  global $erreurs;
-  if($message = verifChampRempli($champ)) {
-    if(strlen($message) < $longueur) {
-      $erreurs[$champ] = "Attention, le champ ".$champ." est trop court : minimum ".$longueur." caractères";
-    }
-    return $message;
-  }
-}
-
-
-//function verifPassword($champ) {
-//  global $erreurs;
-//  if(!empty($_POST[$champ])) {
-//    return sha1($_POST[$champ]);
-//  } else {
-//    $erreurs[$champ] = "Merci de remplir le champ ".$champ;
-//    return NULL;
-//  }
-//}
-
-//---------- A REVOIR -_-"
-function verifPassword($champ, $champ2) {
-  global $erreurs;
-  if((!empty($_POST[$champ]) && !empty($_POST[$champ2]))){
-        if($_POST[$champ] != $_POST[$champ2]){
-         $erreurs[$champ] = 'Les 2 mots de passe sont différents.';
-            return false;    
-        }
-      else{
-        return sha1(htmlentities($_POST[$champ]));  
-      }
-    
-  } else {
-      $erreurs[$champ] = "Merci de remplir les deux champs mot de passe !";
-  }
-}
-    
-    
     
 if($_SERVER["REQUEST_METHOD"] == "POST"){
   // En fonction de nos besoins, on va utiliser les différentes fonctions décrites au-dessus.
@@ -116,7 +53,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
           $req->bindParam(':niveau', $niveau, PDO::PARAM_STR);
       // Exécution de la requête
       $req->execute();
-      header("location:traitement.php?create=ok");
+      header("location:connexion.php?create=ok");
     } catch (PDOException $erreur) {
       echo $erreur->getMessage();
     }

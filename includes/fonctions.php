@@ -38,6 +38,33 @@ function verifLongueur($champ, $longueur) {
   }
 }
 
+function verifMail($champ) {
+  global $erreurs;
+  if($mail = verifChampRempli($champ)) {
+    if(!filter_var($mail, FILTER_VALIDATE_EMAIL)) {
+      $erreurs[$champ] = "L'adresse email du champ ".$champ." n'est pas valide";
+    }
+    return $mail;
+  }
+}
+
+
+function verifPassword($champ, $champ2) {
+  global $erreurs;
+  if((!empty($_POST[$champ]) && !empty($_POST[$champ2]))){
+        if($_POST[$champ] != $_POST[$champ2]){
+         $erreurs[$champ] = 'Les 2 mots de passe sont différents.';
+            return false;    
+        }
+      else{
+        return sha1(htmlentities($_POST[$champ]));  
+      }
+    
+  } else {
+      $erreurs[$champ] = "Merci de remplir les deux champs mot de passe !";
+  }
+}
+
 
 
 
