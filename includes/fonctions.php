@@ -87,30 +87,6 @@ function connecteUtilisateur($db, $login, $password) {
   }
 }
 
-function getDetailsTache($db, $id){
-    $sql = "SELECT id, societe, client, adresse, duree, libelle, secteur, assignea, etat, file, descriptionTache, date 
-    FROM taches WHERE id = :id";
-    try {
-    $req = $db->prepare($sql);
-        $req->bindParam(':societe', $societe, PDO::PARAM_STR);
-        $req->bindParam(':client', $client, PDO::PARAM_STR);
-        $req->bindParam(':adresse', $adresse, PDO::PARAM_STR);
-        $req->bindParam(':duree', $duree, PDO::PARAM_STR);
-        $req->bindParam(':libelle', $libelle, PDO::PARAM_STR);    
-        $req->bindParam(':secteur', $secteur, PDO::PARAM_STR); 
-        $req->bindParam(':assignea', $assignea, PDO::PARAM_STR);
-        $req->bindParam(':etat', $etat, PDO::PARAM_STR);
-        $req->bindParam(':file', $file, PDO::PARAM_STR);
-        $req->bindParam(':descriptionTache', $descriptionTache, PDO::PARAM_STR);
-    $req->execute();
-    // Je récupère l'ensemble des données retournées par la requête grâce à fetchAll
-    $tache = $req->fetchAll()[0];
-    return $tache;
-  }
-    catch (PDOException $erreur) {
-    echo $erreur->getMessage();
-  }
-}
 
 
 
