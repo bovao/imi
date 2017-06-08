@@ -8,7 +8,9 @@ try {
       $req->bindParam(':id', $_GET["id"], PDO::PARAM_INT);
       $req->execute();
       header("location:taches.php?suppr=ok");
-} catch (PDOException $erreur) {
+      echo "<script>alert(\'Tâche supprimé !\')</script>"; 
+} 
+catch (PDOException $erreur) {
         header("location:taches.php?suppr=no");
     } 
 

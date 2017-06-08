@@ -72,8 +72,8 @@ function getTaches($db) {
         </div>
         
         <div class='row'>
-            <p><input type='button' name='pseudo' class='importanceRed'><b> - </b> ID : 1 - $societe - $client - $adresse</p>
-            <p class='left75 top10px'><img src='../assets/icon/arrow-left.png' class='arrow-left'></p>
+            <p><input type='button' name='pseudo' class='importanceRed'><b> - </b> ID : $id - $societe - $client - $adresse</p>
+            <p class='left65 top10px'><img src='../assets/icon/arrow-left.png' class='arrow-left'></p>
         </div>
         <p class='left70 top-20'>$libelle</p>
         </a>

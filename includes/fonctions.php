@@ -15,6 +15,31 @@ function connect() {
 
 
 
+// Déclaration d'un tableau qui va stocker les erreurs
+$erreurs = array();
+
+function verifChampRempli($champ) {
+  global $erreurs;
+  if(!empty($_POST[$champ])) {
+    return htmlspecialchars($_POST[$champ]);
+  } else {
+    $erreurs[$champ] = "Merci de remplir le champ ".$champ;
+    return NULL;
+  }
+}
+
+function verifLongueur($champ, $longueur) {
+  global $erreurs;
+  if($message = verifChampRempli($champ)) {
+    if(strlen($message) < $longueur) {
+      $erreurs[$champ] = "Attention, le champ ".$champ." est trop court : minimum ".$longueur." caractères";
+    }
+    return $message;
+  }
+}
+
+
+
 function getDetailsUtilisateur($db, $id) {
   // On récupère les données de l'utilisateur passé en GET.
   // Requête SQL SELECT avec utilisation des alias pour renommer les noms des colonnes afin de simplifier la manipulation des données dans la page.

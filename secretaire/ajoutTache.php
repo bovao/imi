@@ -7,32 +7,6 @@ include('menu.php');
 
 require_once("../includes/fonctions.php");
 $db = connect(); 
-
-
-// Déclaration d'un tableau qui va stocker les erreurs
-$erreurs = array();
-
-function verifChampRempli($champ) {
-  global $erreurs;
-  if(!empty($_POST[$champ])) {
-    return htmlspecialchars($_POST[$champ]);
-  } else {
-    $erreurs[$champ] = "Merci de remplir le champ ".$champ;
-    return NULL;
-  }
-}
-
-function verifLongueur($champ, $longueur) {
-  global $erreurs;
-  if($message = verifChampRempli($champ)) {
-    if(strlen($message) < $longueur) {
-      $erreurs[$champ] = "Attention, le champ ".$champ." est trop court : minimum ".$longueur." caractères";
-    }
-    return $message;
-  }
-}
-
-
     
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     //societe, client, adresse, duree, libelle, secteur, assignea, etat, file, descriptionTache
