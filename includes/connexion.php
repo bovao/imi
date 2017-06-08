@@ -13,7 +13,7 @@ if(isset($_POST) && !empty($_POST['login']) && !empty($_POST['motdepasse'])) {
             exit();
         }
 
-        if ($membre["rang"] == "technicien") {
+        if ($membre["rang"] == "technicien" |  $membre["rang"] == "") {
             session_start();
             $_SESSION['login'] = $_POST['login'];
             header("location:../technicien/taches.php");
