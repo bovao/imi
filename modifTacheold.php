@@ -32,26 +32,69 @@ function updateTache($db, $tabMembre) {
   }
 }
 
+function verifTexte($donnee, $longueur=46) {
+  if(empty($donnee) || strlen($donnee) > $longueur) {
+    return false;
+  } else {
+    return htmlspecialchars($donnee);
+  }
+}
+
+
+function verifFormulaire() {
+  $retour = array(
+    "erreur" => array(),
+    "donnees" => array()
+  );
+
+  if(!empty($_POST["id"])) {
+    $retour["donnees"]["id"] = intval($_POST["id"]);
+  } else {
+    $retour["erreur"]["id"] = "Un problème est survenu !";
+  }
+  if(!$retour["donnees"]["societe"] = verifLongueur("societe", 3) ) {
+    $retour["erreur"]["societe"] = "La longueur de votre societe doit être comprise entre 0 et 45 caractères.";
+  }
+  if(!$retour["donnees"]["client"] = verifLongueur("client", 3) ) {
+    $retour["erreur"]["client"] = "La longueur de votre client doit être comprise entre 0 et 45 caractères.";
+  }
+  if(!$retour["donnees"]["adresse"] =  verifLongueur("adresse", 8) ) {
+    $retour["erreur"]["adresse"] = "La longueur de votre adresse doit être comprise entre 0 et 45 caractères.";
+  }
+  if(!$retour["donnees"]["duree"] = verifChampRempli("duree") ) {
+    $retour["erreur"]["duree"] = "Votre âge doit être compris entre 17 et 127 ans.";
+  }
+  if(!$retour["donnees"]["libelle"] = verifLongueur("libelle", 4) ) {
+    $retour["erreur"]["libelle"] = "La longueur de votre libelle doit être comprise entre 0 et 21 caractères.";
+  }
+  if(!$retour["donnees"]["secteur"] = verifChampRempli("secteur") ) {
+    $retour["erreur"]["secteur"] = "La longueur de votre secteur doit être comprise entre 0 et 21 caractères.";
+  }
+  if(!$retour["donnees"]["assignea"] = verifChampRempli("assignea") ) {
+    $retour["erreur"]["assignea"] = "La longueur de votre assignea doit être comprise entre 0 et 21 caractères.";
+  }
+  if(!$retour["donnees"]["etat"] = verifChampRempli("etat") ) {
+    $retour["erreur"]["etat"] = "La longueur de votre etat doit être comprise entre 0 et 21 caractères.";
+  }
+  if(!$retour["donnees"]["file"] = verifChampRempli("file") ) {
+    $retour["erreur"]["file"] = "La longueur de votre file doit être comprise entre 0 et 21 caractères.";
+  }
+  if(!$retour["donnees"]["descriptionTache"] = verifChampRempli("descriptionTache") ) {
+    $retour["erreur"]["descriptionTache"] = "La longueur de votre descriptionTache doit être comprise entre 0 et 21 caractères.";
+  }
+  return $retour;
+}
+
 
 // Traitement des données du formulaire : uniquement si on rentre en POST
 if($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $societe = verifLongueur("societe", 3);
-    $client = verifLongueur("client", 3);
-    $adresse = verifLongueur("adresse", 8);
-    $duree = verifChampRempli("duree");
-    $libelle = verifLongueur("libelle", 4);
-    $secteur = verifChampRempli("secteur");
-    $assignea = verifChampRempli("assignea");
-    $etat = verifChampRempli("etat");
-    $file = verifChampRempli("file");
-    $descriptionTache = verifChampRempli("descriptionTache");
-    
-  // Si on n'a pas d'erreur, on peut passer à la mise à jour de nos données.
-if(empty($erreur)) {
-    $modifTache = updateTache($db, $tabMembre);
+  $formulaire = verifFormulaire();
+
+  if(empty($formulaire["erreur"])) {
+    updateMembre($db, $formulaire["donnees"]);
   }
-  extract($modifTache);
+  extract($formulaire["donnees"]);
 
 } else {
   $tache = getDetailsTache($db, $_GET["id"]);
@@ -59,8 +102,6 @@ if(empty($erreur)) {
 
 }
     
-
-
 ?>
 <!--
   $sql = "UPDATE taches
@@ -71,6 +112,16 @@ if(empty($erreur)) {
 
 
 <body>
+    
+<?php 
+   if(!empty($formulaire["erreur"])) {
+      echo "<p class='erreur'>";
+      foreach ($formulaire["erreur"] as $value) {
+        echo $value.'<br />';
+      }
+      echo "</p>";
+    }
+?>
 
 <h1 class="custom-h1">Modifier une tâche</h1>  
 <div id="">

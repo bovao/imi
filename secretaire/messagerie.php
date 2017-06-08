@@ -25,8 +25,6 @@
     <div class="filterMessagerie">
         <a href="ajoutMessage.php"><input type="button" name="pseudo" value="Nouveau message" class="custom-input"></a>
         <a href="lien"><input type="button" name="pseudo" value="Boite de réception" class="custom-input"></a>
-        <a href="lien"><input type="button" name="pseudo" value="Message envoyé" class="custom-input"></a>
-        <a href="lien"><input type="button" name="pseudo" value="Message supprimé" class="custom-input"></a>
     </div><div class="retourligne"></div>
     
     

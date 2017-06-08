@@ -4,28 +4,6 @@
 require_once('../includes/fonctions.php');
 $db = connect(); 
 
-
-
-function getDetailsTache($db, $id) {
-  $sql = "SELECT * FROM taches WHERE id = :id";
-  // 2 - Envoi de la requête avec la méthode try catch
-  try {
-    // On prépare la requête : elle est envoyée au serveur sans les données variables
-    $req = $db->prepare($sql);
-    // On lie la donnée récupérée en GET avec notre requête préparée, et on déclare qu'elle doit être un entier.
-    $req->bindParam(':id', $id, PDO::PARAM_INT);
-    // Exécution de la requête
-    $req->execute();
-    // Je récupère l'ensemble des données retournées par la requête grâce à fetchAll
-    $membre = $req->fetchAll()[0];
-    // j'assigne ces données à mes variables utilisées dans mon formulaire
-    return $membre;
-
-  } catch (PDOException $erreur) {
-    echo $erreur->getMessage();
-  }
-}
-
   // si je rentre en GET (sans soumission de formulaire), je récupère simplement les données de l'utilisateur passé en get
 $tache = getDetailsTache($db, $_GET["id"]);
 extract($tache);

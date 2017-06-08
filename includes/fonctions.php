@@ -40,10 +40,11 @@ function verifLongueur($champ, $longueur) {
 
 
 
+
 function getDetailsUtilisateur($db, $id) {
   // On récupère les données de l'utilisateur passé en GET.
   // Requête SQL SELECT avec utilisation des alias pour renommer les noms des colonnes afin de simplifier la manipulation des données dans la page.
-  $sql = "SELECT id, login, password, mail, nom, secteur, niveau
+  $sql = "SELECT *
   FROM membre WHERE id = :id";
   // 2 - Envoi de la requête avec la méthode try catch
   try {
@@ -87,7 +88,25 @@ function connecteUtilisateur($db, $login, $password) {
   }
 }
 
+function getDetailsTache($db, $id) {
+  $sql = "SELECT * FROM taches WHERE id = :id";
+  // 2 - Envoi de la requête avec la méthode try catch
+  try {
+    // On prépare la requête : elle est envoyée au serveur sans les données variables
+    $req = $db->prepare($sql);
+    // On lie la donnée récupérée en GET avec notre requête préparée, et on déclare qu'elle doit être un entier.
+    $req->bindParam(':id', $id, PDO::PARAM_INT);
+    // Exécution de la requête
+    $req->execute();
+    // Je récupère l'ensemble des données retournées par la requête grâce à fetchAll
+    $detailTache = $req->fetchAll()[0];
+    // j'assigne ces données à mes variables utilisées dans mon formulaire
+    return $detailTache;
 
+  } catch (PDOException $erreur) {
+    echo $erreur->getMessage();
+  }
+}
 
 
 
