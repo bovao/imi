@@ -1,4 +1,14 @@
-<?php include('header.php'); ?>
+<?php include('header.php'); 
+
+require_once("../includes/fonctions.php");
+$db = connect(); 
+
+
+
+?>
+
+
+
 
 <body>
 
@@ -24,7 +34,6 @@
     
     <div class="col3">
       <input type="text" name="pseudo" placeholder="Secteur" class="custom-input"/> <!-- pseudo -->
-      <input type="text" name="pseudo" placeholder="Téléphnone" class="custom-input"/> <!-- pseudo -->
     </div>
     
 </div>
