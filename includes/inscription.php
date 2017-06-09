@@ -11,7 +11,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   $password = verifPassword("password", "pass_confirm");
   $nom = verifLongueur("nom", 4);
   $secteur = verifChampRempli("secteur");
-  $niveau = verifChampRempli("niveau");
 
   // Je regarde si mon tableau d'erreurs est vide et si c'est le cas, j'envoie le mail
   if(empty($erreurs)) {
@@ -24,8 +23,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     Login : $login \n
     Mail : $mail \n
     Nom technicien : $nom \n
-    Secteur : $secteur \n
-    Niveau : $niveau \n";
+    Secteur : $secteur \n";
     $headers = "";
 
     if(mail($destinataire, $sujetMail, $messageMail, $headers)) {
@@ -39,7 +37,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     
   // Si on n'a pas d'erreur, on peut passer à l'insertion de nos données.
   if(empty($erreur)) {      
-        $sql = "INSERT INTO membre VALUES (NULL, :login, :mail, :password, :nom, :secteur, :niveau, 'technicien')";
+        $sql = "INSERT INTO membre VALUES (NULL, :login, :mail, :password, :nom, :secteur, 'technicien')";
     // 2 - Envoi de la requête avec la méthode try catch
     try {
       // On prépare la requête : elle est envoyée au serveur sans les données variables
@@ -50,7 +48,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
           $req->bindParam(':password', $password, PDO::PARAM_STR);
           $req->bindParam(':nom', $nom, PDO::PARAM_STR);
           $req->bindParam(':secteur', $secteur, PDO::PARAM_INT);
-          $req->bindParam(':niveau', $niveau, PDO::PARAM_STR);
       // Exécution de la requête
       $req->execute();
       header("location:connexion.php?create=ok");
@@ -129,14 +126,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     <option value="73">73</option>
                     <option value="38">38</option>
                 </select>
-            
-                <select id="" class="custom-select" name="niveau">
-                    <option selected disabled>-- Niveau -- </option>
-                    <option value="expert">Expert</option>
-                    <option value="intermédiaire">Intermédiaire</option>
-                    <option value="novice">Novice</option>
-                </select>
-                      
+                                 
                <input <?php if(isset($erreurs['nom'])) echo "class='erreur obligatoire'"; ?> type="text" name="nom" value="<?php if(isset($nom)) echo $nom; ?>" placeholder="Votre nom  *"><br />
 
             <input type="submit" value="Créer votre compte" id="envoyer" class="envoyer" />

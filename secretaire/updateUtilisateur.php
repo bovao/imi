@@ -6,19 +6,18 @@ $db = connect();
 
 // Traitement des données du formulaire : uniquement si on rentre en POST
 if($_SERVER["REQUEST_METHOD"] == "POST") {//id,login,mail,nom,secteur,niveau,rang
-    $id = $_GET["id"];
+  $id = $_GET["id"];
   $login = verifLongueur("login", 4);
   $mail = verifMail("mail");
-  $password = verifPassword("password", "pass_confirm");
+  $password = verifPassword2("password");
   $nom = verifLongueur("nom", 4);
   $secteur = verifChampRempli("secteur");
-  $niveau = verifChampRempli("niveau");
   $rang = verifChampRempli("rang");
     
     // Si on n'a pas d'erreur, on peut passer à la mise à jour de nos données.
     if(empty($erreur)) {
         $sql = "UPDATE membre
-        SET login = :login, mail = :mail, password = :password, nom = :nom, secteur = :secteur, niveau = :niveau, rang = :rang WHERE id = :id";
+        SET login = :login, mail = :mail, password = :password, nom = :nom, secteur = :secteur, rang = :rang WHERE id = :id";
       try {
         $req = $db->prepare($sql);
             $req->bindParam(':id', $id, PDO::PARAM_INT);
@@ -26,8 +25,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {//id,login,mail,nom,secteur,niveau,ran
             $req->bindParam(':mail',  $mail, PDO::PARAM_STR);
             $req->bindParam(':password', $password, PDO::PARAM_STR);
             $req->bindParam(':nom', $nom, PDO::PARAM_STR);
-            $req->bindParam(':secteur', $secteur, PDO::PARAM_STR);
-            $req->bindParam(':niveau', $niveau, PDO::PARAM_STR);    
+            $req->bindParam(':secteur', $secteur, PDO::PARAM_STR);  
             $req->bindParam(':rang', $rang, PDO::PARAM_STR); 
             $req->execute();
             header("location:gestionUtilisateur.php?modif=ok");
@@ -72,6 +70,8 @@ if(!empty($erreur)) {
 
             <input type="password" name="password" value="<?php if(isset($password)) echo $password; ?>" placeholder="password" class="custom-input" /> <!-- pseudo -->
    
+                                    
+            <input <?php if(isset($erreurs['file'])) echo "class='erreur'"; ?> value="<?php if(isset($file)) echo $file; ?>" type="file" name="file" id="file" class="inputfile top40px"/><!-- Photo -->
         </div>
             <p></p> 
         <div class="block">
@@ -81,24 +81,19 @@ if(!empty($erreur)) {
                     <option value="73">73</option>
                     <option value="38">38</option>
                 </select>
-                        
-                <select id="" class="custom-select" name="niveau">
-                    <option selected disabled>-- Niveau -- </option>
-                    <option value="expert">Expert</option>
-                    <option value="intermédiaire">Intermédiaire</option>
-                    <option value="novice">Novice</option>
+            
+                    <select class="custom-select" name="rang">
+                    <option selected disabled>-- Rang -- </option>
+                    <option value="technicien">technicien</option>
+                    <option value="secretaire">secretaire</option>
                 </select>
-                      
-            <input <?php if(isset($erreurs['nom'])) echo "class='erreur'"; ?>type="text" name="nom" value="<?php if(isset($nom)) echo $nom; ?>" placeholder="Votre nom" class="custom-input" /> <!-- pseudo -->   
+                                             
+            <input <?php if(isset($erreurs['nom'])) echo "class='erreur'"; ?>type="text" name="nom" value="<?php if(isset($nom)) echo $nom; ?>" placeholder="Votre nom" class="custom-input" /> <!-- pseudo --> 
         </div>
         
             <p></p>
-
-        <div class="row ">
-            <input <?php if(isset($erreurs['file'])) echo "class='erreur'"; ?> value="<?php if(isset($file)) echo $file; ?>" type="file" name="file" id="file" class="inputfile top40px"/><!-- Photo -->
-            
+        
             <input type="submit" value="Modifier" class="btnAjoutTache"/>  <!-- btn inscription -->
-        </div>
     </form><!-- fin form -->
 </div>
     
