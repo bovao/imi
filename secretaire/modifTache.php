@@ -5,6 +5,7 @@ $db = connect();
 
 include('menu.php');
 
+$page = listeNomUtilisateurs($db);
 
 // Traitement des données du formulaire : uniquement si on rentre en POST
 if($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -84,17 +85,13 @@ if(!empty($erreur)) {
             <input value="<?php if(isset($libelle)) echo $libelle; ?>" type="text" name="libelle" placeholder="Libelle du problème" class="custom-input"/> <!-- email -->        
             <select class="custom-select" name="secteur">
                 <option selected disabled>-- Secteur -- </option>
-                <option value="74">74 (Haute-savoie)</option>
-                <option value="73">73 (Savoie)</option>
-                <option value="38">38 (Isère)</option>
+                <option <?php if(isset($secteur)) echo $secteur; ?>  value="74">74 (Haute-savoie)</option>
+                <option <?php if(isset($secteur)) echo $secteur; ?> value="73">73 (Savoie)</option>
+                <option <?php if(isset($secteur)) echo $secteur; ?>  value="38">38 (Isère)</option>
             </select>
 
-            <select class="custom-select" name="assignea">
-                <option selected disabled>-- Assigné à -- </option>
-                <option value="Alexis">Alexis</option>
-                <option value="Jean">Jean</option>
-                <option value="Luc">Luc</option>
-            </select>
+       <!-- renvoie select nom utilisateur inscrit (voir listeNomUtilisateurs()) -->
+            <?php echo $page["corps"];?>
 
             <select class="custom-select" name="etat">
                 <option selected disabled>-- Etat / Statut -- </option>
@@ -108,7 +105,9 @@ if(!empty($erreur)) {
         <div class="row ">
             <input value="<?php if(isset($file)) echo $file; ?>" type="file" name="file" id="file" class="inputfile top40px"/><!-- Photo -->
             
-            <textarea placeholder="Votre message..." class="custom-textarea" name="descriptionTache" value="<?php if(isset($descriptionTache)) echo $descriptionTache; ?>"></textarea>
+            <textarea placeholder="Votre message..." class="custom-textarea" name="descriptionTache" 
+            value="<?php if(isset($descriptionTache)) echo $descriptionTache; ?>"></textarea>
+            
             <input type="submit" value="Modifier" class="btnAjoutTache"/>  <!-- btn inscription -->
         </div>
     </form>
