@@ -1,7 +1,11 @@
 <?php
-session_start();
-session_unset();
-session_destroy();
-header('Location: ../index.php');
-exit();
+/*
+Fonction permettant de déconnecter un utilisateur en supprimant sa session et en vidant les variables liées.
+*/
+function deconnexion() {
+  session_destroy();
+  $_SESSION = array();
+  header("location:../index.php");
+  exit;
+}
 ?>
