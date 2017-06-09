@@ -6,6 +6,9 @@ include('menu.php');
 
 require_once("../includes/fonctions.php");
 $db = connect(); 
+
+$page = listeNomUtilisateurs($db);
+
     
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     //societe, client, adresse, duree, libelle, secteur, assignea, etat, file, descriptionTache
@@ -46,9 +49,6 @@ if(empty($erreur)) {
 }
 ?>
 
-
-
-
 <body>
 
 <?php
@@ -84,13 +84,9 @@ if(!empty($erreur)) {
                 <option value="38">38 (Isère)</option>
             </select>
 
-            <select class="custom-select" name="assignea">
-                <option selected disabled>-- Assigné à -- </option>
-                <option value="Alexis">Alexis</option>
-                <option value="Jean">Jean</option>
-                <option value="Luc">Luc</option>
-            </select>
-
+            <!-- renvoie select nom utilisateur inscrit (voir listeNomUtilisateurs()) -->
+            <?php echo $page["corps"];?>
+            
             <select class="custom-select" name="etat">
                 <option selected disabled>-- Etat / Statut -- </option>
                 <option value="tachesEffectuee">Tâches à effectuée</option>
@@ -101,6 +97,8 @@ if(!empty($erreur)) {
             <p></p>
 
         <div class="row ">
+
+            
             <input <?php if(isset($erreurs['file'])) echo "class='erreur'"; ?> value="<?php if(isset($file)) echo $file; ?>" type="file" name="file" id="file" class="inputfile top40px"/><!-- Photo -->
             
             <textarea placeholder="Votre message..." class="custom-textarea" name="descriptionTache"></textarea>
