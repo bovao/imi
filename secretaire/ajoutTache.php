@@ -69,7 +69,7 @@ if(!empty($erreur)) {
         <div class="row">
            <input <?php if(isset($erreurs['societe'])) echo "class='erreur'"; ?>type="text" name="societe" value="<?php if(isset($societe)) echo $societe; ?>" placeholder="Société" class="custom-input" /> <!-- pseudo -->
            <input <?php if(isset($erreurs['client'])) echo "class='erreur'"; ?>type="text" name="client" value="<?php if(isset($client)) echo $client; ?>" placeholder="Nom client" class="custom-input" /> <!-- pseudo -->
-           <input <?php if(isset($erreurs['adresse'])) echo "class='erreur'"; ?>type="text" name="adresse" value="<?php if(isset($adresse)) echo $adresse; ?>" placeholder="Adresse client" class="custom-input" /> <!-- pseudo -->            
+           <input <?php if(isset($erreurs['adresse'])) echo "class='erreur'"; ?>type="text" name="adresse" value="<?php if(isset($adresse)) echo $adresse; ?>" placeholder="Lieux" class="custom-input" /> <!-- pseudo -->            
             
            <label for="duree">Durée :</label>
             <input <?php if(isset($erreurs['duree'])) echo "class='erreur'"; ?>value="<?php if(isset($duree)) echo $duree; ?>" type="time" name="duree" placeholder="Durée" class="custom-input"/> <!-- mdp -->

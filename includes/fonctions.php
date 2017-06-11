@@ -233,6 +233,18 @@ function getDetailsTache($db, $id) {
 
 
 
+function getTaches($db) {
+  $sql = "SELECT id, societe, client, adresse, libelle, etat, date FROM taches";
+  try {
+    $retour["donnees"] = $db->query($sql);
+    $retour["statut"] = "ok";
+  } catch (PDOException $erreur) {
+    $retour["donnees"] = $erreur->getMessage();
+    $retour["statut"] = "erreur";
+  }
+  return $retour;
+}
+
 
 
 

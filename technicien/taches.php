@@ -1,4 +1,16 @@
-<?php include('header.php'); ?>
+<?php include('header.php');
+
+
+ if $detailTache["assignea"] == $_SESSION['login'] {
+     
+    affiche la tache en question */
+
+
+
+
+?>
+
+
 
 <body>
 

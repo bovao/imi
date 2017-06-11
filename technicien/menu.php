@@ -1,8 +1,3 @@
-<?php include ('../includes/fonctions.php') ; 
-$db = connect(); 
-?>
-
-
 <footer>
 <div class="menu">          
 <ul id="navigation">

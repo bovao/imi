@@ -11,11 +11,10 @@ function detailUtilisateur($db, $id) {
   $contenu = array();
   $contenu["corps"] = "";
 
-  $donnees = getUtilisateurs($db);
+  $membre = getDetailsUtilisateur($db, $id);
 
-  if($donnees["statut"] == "ok") {
+  if($membre["statut"] == "ok") {
       
-    while($membre = $donnees["donnees"]->fetch()) {
         
     $id = $membre["id"];
     $login = $membre["login"];
@@ -23,7 +22,7 @@ function detailUtilisateur($db, $id) {
     $mail = $membre["mail"];
     $secteur = $membre["secteur"];
     $nom = $membre["nom"];
-    }
+    
       
     $contenu["corps"].="
       <div class='technicien'>
@@ -33,19 +32,11 @@ function detailUtilisateur($db, $id) {
     <div class='row'>
         <div class='col3'>
             <img src='../assets/img/698.jpg' id='imgPerso'>
-               <input type='text' name='login' value='$login' placeholder='Login' class='custom-input' /> <!-- pseudo -->
+               <input type='text' name='login' value='$login' placeholder='Login' class='custom-input' disabled/> <!-- pseudo -->
 
-            <input type='password' name='password' value='$password' placeholder='password' class='custom-input' /> <!-- pseudo -->
-             <input type='text' name='mail' value='$mail' placeholder='Adresse email' class='custom-input' />
-        </div>
-
-        <div class='col3'>
-           <select class='custom-select blockCenter' name='secteur'>
-            <option selected disabled>-- Secteur -- </option>
-            <option value='$secteur'>74</option>
-            <option value='$secteur'>73</option>
-            <option value='$secteur'>38</option>
-        </select>
+            <input type='password' name='password' value='$password' placeholder='password' class='custom-input' disabled/> <!-- pseudo -->
+             <input type='text' name='mail' value='$mail' placeholder='Adresse email' class='custom-input' disabled/>
+             <input type='text' name='nom' value='$nom' placeholder='Nom' class='custom-input' disabled/>
         </div>
     </div>
     ";
@@ -70,19 +61,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
       $login = verifLongueur("login", 4);
       $password = verifPassword2("password");
       $mail = verifMail("mail");
-      $secteur = verifChampRempli("secteur");
 
     // Si on n'a pas d'erreur, on peut passer à la mise à jour de nos données.
     if(empty($erreur)) {
         $sql = "UPDATE membre
-        SET login = :login, password = :password, mail = :mail, secteur = :secteur WHERE id = :id";
+        SET login = :login, password = :password, mail = :mail WHERE id = :id";
       try {
         $req = $db->prepare($sql);
             $req->bindParam(':id', $id, PDO::PARAM_INT);
             $req->bindParam(':login', $login, PDO::PARAM_STR);
             $req->bindParam(':mail', $mail, PDO::PARAM_STR);
             $req->bindParam(':password', $password, PDO::PARAM_STR);
-            $req->bindParam(':secteur', $secteur, PDO::PARAM_INT);
             $req->execute();
             header("location:compte.php?modif=ok");
             echo "<script>alert(\"Nouvelle modification effectué !\")</script>"; 
@@ -126,7 +115,7 @@ if(!empty($erreur)) {
 
     <?php echo $page["corps"]; ?>
   
-     <input type="submit" class="center" id="btnModifCompte" value="Sauvegarder modification">   
+<!--     <input type="submit" class="center" id="btnModifCompte" value="Sauvegarder modification">   -->
 
 </form>
     

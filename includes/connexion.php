@@ -8,14 +8,14 @@ if(isset($_POST) && !empty($_POST['login']) && !empty($_POST['motdepasse'])) {
 
         if ($membre["rang"] == "secretaire") {
             session_start();
-            $_SESSION['login'] = $_POST['login'];
+            $_SESSION['login'] = $membre;
             header("location:../secretaire/taches.php");
             exit();
         }
 
         if ($membre["rang"] == "technicien" |  $membre["rang"] == "") {
             session_start();
-            $_SESSION['login'] = $_POST['login'];
+            $_SESSION['login'] = $membre;
             header("location:../technicien/taches.php?nom=".$membre["nom"]."");
             exit();
         }

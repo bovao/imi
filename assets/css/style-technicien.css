@@ -167,7 +167,7 @@ input[type='search'] {
     
 #navigation li {
     display: block;
-    margin: 10px 15px 0px 15px;
+    margin: 10px 30px 0px 30px;
     }
     
     #navigation li a {
@@ -285,7 +285,7 @@ input[type='search'] {
   and (-webkit-min-device-pixel-ratio: 2)
   and (orientation: landscape) { 
       
-    #navigation li {margin: 10px 60px 0px 60px;}
+    #navigation li {margin: 10px 90px 0px 90px;}
     .arrow-left {width: 3%; margin-top: -3%;}
     .arrow-left2 {    width: 3%; margin-top: -1%;}
     #imgDetailTache {width: 70%;margin: auto; display: block;}
@@ -313,7 +313,7 @@ input[type='search'] {
   and (-webkit-min-device-pixel-ratio: 3)
   and (orientation: portrait) { 
 
-    #navigation li {margin: 10px 20px 0px 20px;}
+    #navigation li {margin: 10px 40px 0px 40px;}
     #imgPerso {top: 10%;}
     .arrow-left {width: 4%; margin-top: -4%;}
 }
@@ -326,7 +326,7 @@ input[type='search'] {
   and (-webkit-min-device-pixel-ratio: 3)
   and (orientation: landscape) { 
       
-      #navigation li {margin: 10px 70px 0px 70px;}
+      #navigation li {margin: 10px 105px 0px 105px;}
       #imgDetailTache {width: 70%;margin: auto; display: block;}
       .arrow-left {width: 3%; margin-top: -3%;}
       #imgPerso {left: 75%; top: 25%;}
@@ -350,7 +350,7 @@ input[type='search'] {
   and (max-device-width: 1024px) 
   and (orientation: portrait) 
   and (-webkit-min-device-pixel-ratio: 1) {
-      #navigation li {margin: 10px 75px 0px 75px;}
+      #navigation li {margin: 10px 110px 0px 110px;}
       #imgDetailTache{width: 70%; margin: 0 auto; display: block;}
       .arrow-left2 {width: 3%; margin-top: -1%;}
 }
@@ -373,7 +373,7 @@ input[type='search'] {
 @media only screen 
 and (min-device-width : 1024px) 
 and (max-device-width : 1366px) { 
-    #navigation li {margin: 10px 115px 0px 115px;}
+    #navigation li {margin: 10px 160px 0px 160px;}
     .arrow-left {width: 2%;margin-top: -2%;}
     .arrow-left2 {width: 2%;margin-top: 0%;}
     #imgDetailTache {width: 55%; margin: 0 auto; display: block;}
@@ -384,7 +384,7 @@ and (max-device-width : 1366px) {
 and (min-device-width : 1024px) 
 and (max-device-width : 1366px)
 and (orientation:landscape){
-     #navigation li {margin: 10px 120px 0px 120px;}
+     #navigation li {margin: 10px 165px 0px 165px;}
     .arrow-left2 {margin-left: 60%;width: 1%; margin-top: 0%;}
     .arrow-left {width: 1%; margin-top: -1%; margin-left: 60%;}
     #imgDetailTache {width: 55%; margin: 0 auto; display: block;}
@@ -394,7 +394,7 @@ and (orientation:landscape){
 @media screen 
   and (min-device-width: 1200px)  
   and (-webkit-min-device-pixel-ratio: 1) { 
-      #navigation li {margin: 10px 110px 0px 110px;}
+      #navigation li {margin: 10px 160px 0px 160px;}
       .arrow-left {width: 2%; margin-top: -2%; margin-left: 55%;}
       #imgPerso {top: 15%;}
       .arrow-left2 {width: 2%; margin-top: -1%; margin-left: 55%;}
