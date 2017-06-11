@@ -22,17 +22,18 @@ session_start();
     $taches = getTaches($db, $_SESSION['membre']['login']);
 
 while($tache = $taches["donnees"]->fetch()) {
- if ($tache["assignea"] == $_SESSION['membre']['login']) { 
+ if ($tache["assignea"] == $_SESSION['membre']['login'] && $tache["etat"] == "tacheEnCours") { 
 ?>
      
 <?php 
      $id = $tache["id"];
      $societe = $tache["societe"]; 
      $adresse = $tache["adresse"];
+     $etat = $tache["etat"];//si tacheeffectue pas de tache à afficher si non affiche
      
     ?>
     <div class="intervention">
-        <a href="detailTache.php"> 
+        <a href='detailTache.php?id=<?= $id; ?>'>
             <div class="row">
                 <p class="fontweight100">Lundi 29 Mai 2017</p> 
                 <img src="../assets/icon/arrow-left.png" class="arrow-left2">

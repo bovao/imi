@@ -209,7 +209,6 @@ function listeNomUtilisateurs($db) {
     else {
     $contenu["corps"].="<p class='erreur'>".$donnees["donnees"]."</p>";
   }
-
   return $contenu;
 }
 
