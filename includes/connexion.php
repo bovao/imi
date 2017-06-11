@@ -1,29 +1,40 @@
 <?php include ('fonctions.php') ; 
 $db = connect(); 
+session_start();
    
 if(isset($_POST) && !empty($_POST['login']) && !empty($_POST['motdepasse'])) {
     try {
         $membre = connecteUtilisateur($db, $_POST['login'], $_POST['motdepasse']);
-        
 
         if ($membre["rang"] == "secretaire") {
-            session_start();
-            $_SESSION['login'] = $membre;
+            $_SESSION['membre'] = array(
+              "login" => $membre["login"]
+            );
             header("location:../secretaire/taches.php");
-            exit();
+            exit;
+            session_write_close();
         }
 
-        if ($membre["rang"] == "technicien" |  $membre["rang"] == "") {
-            session_start();
-            $_SESSION['login'] = $membre;
+        if ($membre["rang"] == "technicien") {
+            $_SESSION['membre'] = array(
+              "login" => $membre["login"]
+            );
             header("location:../technicien/taches.php?nom=".$membre["nom"]."");
-            exit();
+            exit;
+            session_write_close();
+        }
+        
+        if ($membre == NULL) {
+            
         }
        
     } catch (PDOException $erreur) {
         echo $erreur->getMessage();
-        }
+    }
 }
+
+var_dump($_SESSION['login']);
+    
 ?>
 
 

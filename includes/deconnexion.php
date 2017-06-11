@@ -4,8 +4,7 @@ Fonction permettant de déconnecter un utilisateur en supprimant sa session et e
 */
 function deconnexion() {
   session_destroy();
-  $_SESSION = array();
-  header("location:../index.php");
+  header("location:../connexion.php");
   exit;
 }
 ?>

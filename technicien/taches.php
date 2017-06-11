@@ -1,13 +1,7 @@
 <?php include('header.php');
-
-
- if $detailTache["assignea"] == $_SESSION['login'] {
-     
-    affiche la tache en question */
-
-
-
-
+include('../includes/fonctions.php');
+$db = connect();  
+session_start();
 ?>
 
 
@@ -21,44 +15,38 @@
     <h1 class="h1-custom">Liste des tâches</h1>
     <a href="../index.php" class="marginright2 white right a-custom"><i class="fa fa-filter fa-2x"></i></a>
 </div>
+    
+<p class="center custom-p">X tâches à effectuée</p>
+    
+<?php
+    $taches = getTaches($db, $_SESSION['membre']['login']);
 
-    <p class="center custom-p">2 tâches à effectuée</p>
+while($tache = $taches["donnees"]->fetch()) {
+ if ($tache["assignea"] == $_SESSION['membre']['login']) { 
+?>
+     
+<?php 
+     $id = $tache["id"];
+     $societe = $tache["societe"]; 
+     $adresse = $tache["adresse"];
+     
+    ?>
     <div class="intervention">
         <a href="detailTache.php"> 
             <div class="row">
                 <p class="fontweight100">Lundi 29 Mai 2017</p> 
                 <img src="../assets/icon/arrow-left.png" class="arrow-left2">
-                <p><input type="button" name="pseudo" value="" class="importanceRed"><b> - </b> ID : 1 - Société - Lieux</p>
-                <p>Livraison et formation du C750</p>
+                <p><input type="button" name="pseudo" value="" class="importanceRed"><b> - </b> <?= $id ?> :  - <?= $societe ?> - <?= $adresse?></p>
+                <p><?= $tache["descriptionTache"] ?></p>
                 
             </div>            
         </a>
         <div class="retourligne"></div>
     </div>
-    <div class="intervention">
-        <a href="detailTache.php"> 
-            <div class="row">
-                <p class="fontweight100">Vendredi 21 Avril 2017</p>  
-                 <img src="../assets/icon/arrow-left.png" class="arrow-left2">
-                <p><input type="button" name="pseudo" value="" class="importanceVert"><b> - </b> ID : 1 - Société - Lieux</p>
-                <p>Installation Windows server 2008 postes clients</p>
-               
-            </div>            
-        </a>
-        <div class="retourligne"></div>
-    </div>
-  <div class="intervention">
-        <a href="detailTache.php"> 
-            <div class="row">
-                <p class="fontweight100">Vendredi 21 Avril 2017</p>  
-                 <img src="../assets/icon/arrow-left.png" class="arrow-left2">
-                <p><input type="button" name="pseudo" value="" class="importanceVert"><b> - </b> ID : 1 - Société - Lieux</p>
-                <p>Installation Windows server 2008 postes clients</p>
-               
-            </div>            
-        </a>
-        <div class="retourligne"></div>
-    </div>
+<?php
+ }
+}
+?>                    
     
     
 <?php include('menu.php'); ?>

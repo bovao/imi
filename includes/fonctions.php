@@ -90,6 +90,7 @@ function connecteUtilisateur($db, $login, $password) {
     $req->execute();
     // Je récupère l'ensemble des données retournées par la requête grâce à fetchAll
     $membre = $req->fetchAll()[0];
+      
     // j'assigne ces données à mes variables utilisées dans mon formulaire
     return $membre;
 
@@ -199,7 +200,7 @@ function listeNomUtilisateurs($db) {
 
   if($donnees["statut"] == "ok") {
     while($membre = $donnees["donnees"]->fetch()) {
-      $contenu["corps"].= "<option value=".$membre["nom"].">".$membre["nom"]."</option>";
+      $contenu["corps"].= "<option value=".$membre["login"].">".$membre["login"]."</option>";
     }
   } 
     else {
@@ -233,8 +234,11 @@ function getDetailsTache($db, $id) {
 
 
 
-function getTaches($db) {
-  $sql = "SELECT id, societe, client, adresse, libelle, etat, date FROM taches";
+function getTaches($db, $login) {
+  $sql = "SELECT * FROM taches";
+  if ($login != NULL) {
+    $sql .= " WHERE assignea = '" . $login . "'";
+  }
   try {
     $retour["donnees"] = $db->query($sql);
     $retour["statut"] = "ok";
