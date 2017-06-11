@@ -199,9 +199,12 @@ function listeNomUtilisateurs($db) {
   $donnees = getUtilisateurs($db);
 
   if($donnees["statut"] == "ok") {
-    while($membre = $donnees["donnees"]->fetch()) {
-      $contenu["corps"].= "<option value=".$membre["login"].">".$membre["login"]."</option>";
+      $contenu["corps"].= "<select class='custom-select' name='assignea'>";
+    while($membre = $donnees["donnees"]->fetch()) {  
+      $contenu["corps"].= "<option value=".$membre["login"].">".$membre["login"]."</option>
+     ";
     }
+    $contenu["corps"].= "</select>";
   } 
     else {
     $contenu["corps"].="<p class='erreur'>".$donnees["donnees"]."</p>";
