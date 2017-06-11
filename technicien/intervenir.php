@@ -2,6 +2,7 @@
 
 require_once("../includes/fonctions.php");
 $db = connect(); 
+session_start();
 ?>
     
 
@@ -31,8 +32,10 @@ if(!empty($erreur)) {
         <div class="col3">
          <fieldset><legend>Détails :</legend> 
             <input type="hidden" name="id" value="<?php echo intval($_GET["id"]); ?>">
-            <input type="text" name="copieNB" placeholder="Nb copie N&B" class="custom-input" 
-            value="<?php echo $copieNB; ?>"/>
+             
+             <input <?php if(isset($erreurs['copieNB'])) echo "class='erreur'"; ?>type="text" name="copieNB" value="<?php if(isset($copieNB)) echo $copieNB; ?>" placeholder="Nb copie N&B" class="custom-input" /> <!-- pseudo -->
+             
+
             <input type="text" name="copieCouleur" placeholder="Nb copie couleur" class="custom-input" 
                  value="<?php echo $copieCouleur; ?>"/>
              
@@ -92,7 +95,7 @@ if(empty($erreur)) {
         echo $erreur->getMessage();
     }
   
-    if($statut == "tachesEffectuee"){
+    if($_POST["statut"] == "tachesEffectuee"){
          $sql = "UPDATE taches SET etat = :etat WHERE etat = 'TacheEffectue' and id = :id  ";
          try {
             $req = $db->prepare($sql);

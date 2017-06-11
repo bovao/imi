@@ -4,6 +4,7 @@ $db = connect();
 session_start();
 ?>
 
+
 <body>
 
 <div id="bloc_page">

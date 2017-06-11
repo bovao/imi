@@ -84,17 +84,14 @@ if(!empty($erreur)) {
                 <option value="38">38 (Isère)</option>
             </select>
 
-            <select class='custom-select' name='assignea'>
-                <option selected disabled>-- Assigné à -- </option>
             <!-- renvoie select nom utilisateur inscrit (voir listeNomUtilisateurs()) -->
             <?php echo $page["corps"];?>
-            </select>
+
             
             <select class="custom-select" name="etat">
                 <option selected disabled>-- Etat / Statut -- </option>
-                <option value="tachesEffectuee">Tâches à effectuée</option>
                 <option value="tacheEnCours">Tâches en cours</option>
-                <option value="tacheTerminee">Tâche terminée</option>
+                <option value="tachesEffectuee">Tâches effectuée</option>
             </select>
         </div>
             <p></p>

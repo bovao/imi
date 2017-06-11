@@ -122,8 +122,7 @@ function getUtilisateurs($db) {
 function getDetailsUtilisateur($db, $id) {
   // On récupère les données de l'utilisateur passé en GET.
   // Requête SQL SELECT avec utilisation des alias pour renommer les noms des colonnes afin de simplifier la manipulation des données dans la page.
-  $sql = "SELECT *
-  FROM membre WHERE id = :id";
+  $sql = "SELECT * FROM membre WHERE id = :id";
   // 2 - Envoi de la requête avec la méthode try catch
   try {
     // On prépare la requête : elle est envoyée au serveur sans les données variables
@@ -251,6 +250,21 @@ function getTaches($db, $login) {
   return $retour;
 }
 
+
+function getUsers($db, $login) {
+  $sql = "SELECT * FROM membre";
+      if ($login != NULL) {
+    $sql .= " WHERE login = '" . $login . "'";
+  }
+  try {
+    $retour["donnees"] = $db->query($sql);
+    $retour["statut"] = "ok";
+  } catch (PDOException $erreur) {
+    $retour["donnees"] = $erreur->getMessage();
+    $retour["statut"] = "erreur";
+  }
+  return $retour;
+}
 
 
 
