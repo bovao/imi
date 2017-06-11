@@ -36,7 +36,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 }
     
   // Si on n'a pas d'erreur, on peut passer à l'insertion de nos données.
-  if(empty($erreur)) {      
+  if(empty($erreur)) {     
         $sql = "INSERT INTO membre VALUES (NULL, :login, :mail, :password, :nom, :secteur, 'technicien')";
     // 2 - Envoi de la requête avec la méthode try catch
     try {

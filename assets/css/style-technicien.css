@@ -188,7 +188,7 @@ input[type='search'] {
     font: 9px Verdana;
 }
 
-.btnIntervenir {
+.btnIntervenir{
     padding: 10px 15px 11px !important;
     font-size: 18px !important;
     background-color: #57d6c7;
@@ -208,11 +208,33 @@ input[type='search'] {
     width: 100%;
 }
 
+
 .custom-p {
     font-size: 18px;
     font-weight: lighter;
 }
 
+
+
+#btnModifCompte {
+     padding: 10px 15px 11px !important;
+    font-size: 18px !important;
+    background-color: #57d6c7;
+    font-weight: bold;
+    text-shadow: 1px 1px #57D6C7;
+    color: #ffffff;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border: 1px solid #57D6C7;
+    cursor: pointer;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset;
+    -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset;
+    -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset;
+    margin-top: 3%;
+    margin-right: 10%;
+    width: 100%;
+}
 * {-moz-box-sizing: border-box; box-sizing: border-box;}
 
 .custom-textarea {
@@ -220,8 +242,13 @@ input[type='search'] {
     width: 100%;
 }
 
+.blockCenter {
+    display: block;
+    margin: 0 auto;
+}
+
 .custom-select {
-    width: 100%;
+    width: 80%;
     height: 45px;
     border: 1px solid;
     border-radius: 25px;

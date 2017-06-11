@@ -162,6 +162,8 @@ function listeUtilisateurs($db) {
             <th>Rang</th>
       </tr>";
     while($membre = $donnees["donnees"]->fetch()) {
+
+        $nom = $membre["nom"];
       // var_dump($utilisateur);
       $contenu["corps"].= "<tr>";
       $contenu["corps"].= "<td>".$membre["id"]."</td>";
@@ -196,11 +198,9 @@ function listeNomUtilisateurs($db) {
   $donnees = getUtilisateurs($db);
 
   if($donnees["statut"] == "ok") {
-    $contenu["corps"] .= "<select class='custom-select' name='assignea'><option selected disabled>-- Assigné à -- </option>";
     while($membre = $donnees["donnees"]->fetch()) {
-      $contenu["corps"].= "<option value=''>".$membre["nom"]."</option>";
+      $contenu["corps"].= "<option value=".$membre["nom"].">".$membre["nom"]."</option>";
     }
-    $contenu["corps"].="</select>";
   } 
     else {
     $contenu["corps"].="<p class='erreur'>".$donnees["donnees"]."</p>";

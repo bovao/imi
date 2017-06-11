@@ -49,6 +49,11 @@
             <p class="left70 top-20">Installation pilotes postes clients + Création d’un scan SMB</p>
         </a>
         <div class="retourligne"></div>
+
+        <hr>
+        <ul id='mesActions'>
+            <li><i class='fa fa-trash-o fa-2x'></i><a href='delete.php?id=".$tache["id"]."'>Supprimer</a></li>
+        </ul>
     </div>
     
     <!-- new task -->
