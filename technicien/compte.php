@@ -53,6 +53,8 @@ extract($membre);
     <h1>Dernière intervention</h1>
 </div>
     
+        
+<input type="search" name="Recherche" placeholder="Rechercher" class="custom-input"/> <!-- pseudo -->
 <?php
     $taches = getTaches($db, $_SESSION['membre']['login']);
 
@@ -65,8 +67,7 @@ while($tache = $taches["donnees"]->fetch()) {
      $etat = $tache["etat"];//si tacheeffectue pas de tache à afficher si non affiche
      
     ?>
-        
-<input type="search" name="Recherche" placeholder="Rechercher" class="custom-input"/> <!-- pseudo -->
+
     
     <div class="intervention">
         <a href="detailIntervention.php"> 
