@@ -22,9 +22,7 @@ session_start();
     
 $membre = getUsers($db, $_SESSION['membre']['login']);
 extract($membre);
-?>
-
-    
+?>    
 <!-- formulaire de modification -->
     <input type="hidden" name="id" value="<?php echo intval($_GET["id"]); ?>">
 
@@ -65,14 +63,24 @@ while($tache = $taches["donnees"]->fetch()) {
      $societe = $tache["societe"]; 
      $adresse = $tache["adresse"];
      $etat = $tache["etat"];//si tacheeffectue pas de tache à afficher si non affiche
+     $date = strtotime($tache["date"]);
      
-    ?>
+     $format = new IntlDateFormatter("fr_FR", IntlDateFormatter::FULL, IntlDateFormatter::NONE);
+     $datePropre = $format->format($date);
+     
+     
+     $jour = explode(" ", $datePropre);
+     $jourLettre = $jour[0];
+     $jourNum = $jour[1];
+     $jourMois= $jour[2];
+     $jourAnnee = $jour[3];
+?>
 
     
     <div class="intervention">
         <a href="detailIntervention.php"> 
             <div class="row">
-                <p class="fontweight100">Vendredi 21 Avril 2017</p> 
+                <p class="fontweight100"><?= $jourLettre ." ". $jourNum ." ". $jourMois ." ". $jourAnnee ?> : </p> 
                 <img src="../assets/icon/arrow-left.png" class="arrow-left">
                 <p><input type="button" name="pseudo" value="" class="importanceRed"><b> - </b> <?= $id ?> :  - <?= $societe ?> - <?= $adresse?></p>
                 

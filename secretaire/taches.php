@@ -47,16 +47,38 @@ $db = connect();
     $client = $tache["client"];
     $adresse = $tache["adresse"];
     $libelle = $tache["libelle"];
-    $etat = $tache["etat"];
-    $date = $tache["date"];
+    $etat = $tache["etat"];        
+    $date = strtotime($tache["date"]);
+     
+     $format = new IntlDateFormatter("fr_FR", IntlDateFormatter::FULL, IntlDateFormatter::NONE);
+     $datePropre = $format->format($date);
+     
+     
+     $jour = explode(" ", $datePropre);
+     $jourLettre = $jour[0];
+     $jourNum = $jour[1];
+     $jourMois= $jour[2];
+     $jourAnnee = $jour[3];
+?>
+    
+    
+<script>
+function confirmationSuppression(){
+  if(confirm("Sur ?")) {
+      <?php 
+        header("location:'delete.php?id=".$tache["id"]."'");
+        ?>
+    }  
+}
+</script>
 
-        
+<?php
     $contenu["corps"].="
         <div class='taches'>
         <a href='detailTache.php?id=".$tache["id"]."'>
         <div class='row'>
-            <p>Vendredi</p>
-                <p class='left85'>$date</p>  
+            <p>$jourLettre</p>
+                <p class='left85'>$jourNum $jourMois $jourAnnee</p>  
         </div>
         
         <div class='row'>
@@ -70,7 +92,12 @@ $db = connect();
         <hr>
         <ul id='mesActions'>
         <li><i class='fa fa-pencil-square-o fa-2x'></i><a href='modifTache.php?id=".$tache["id"]."'>Modifier</a></li>
-            <li><i class='fa fa-trash-o fa-2x'></i><a href='delete.php?id=".$tache["id"]."'>Supprimer</a></li>
+            <li><i class='fa fa-trash-o fa-2x'></i>
+            
+            <a href='' onclick='confirmationSuppression()'>Supprimer
+            </a>
+                        
+            </li>
         </ul>
     </div>";
         
