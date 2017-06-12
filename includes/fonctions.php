@@ -255,15 +255,21 @@ function getUsers($db, $login) {
   $sql = "SELECT * FROM membre";
       if ($login != NULL) {
     $sql .= " WHERE login = '" . $login . "'";
-  }
-  try {
-    $retour["donnees"] = $db->query($sql);
-    $retour["statut"] = "ok";
+  }  try {
+    // On prépare la requête : elle est envoyée au serveur sans les données variables
+    $req = $db->prepare($sql);
+    // On lie la donnée récupérée en GET avec notre requête préparée, et on déclare qu'elle doit être un entier.
+    $req->bindParam(':id', $id, PDO::PARAM_INT);
+    // Exécution de la requête
+    $req->execute();
+    // Je récupère l'ensemble des données retournées par la requête grâce à fetchAll
+    $detailTache = $req->fetchAll()[0];
+    // j'assigne ces données à mes variables utilisées dans mon formulaire
+    return $detailTache;
+
   } catch (PDOException $erreur) {
-    $retour["donnees"] = $erreur->getMessage();
-    $retour["statut"] = "erreur";
+    echo $erreur->getMessage();
   }
-  return $retour;
 }
 
 

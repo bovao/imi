@@ -6,13 +6,7 @@ session_start();
 
 //$test = $_SESSION['login'];
 //$_SERVER["PHP_AUTH_USER"];
-
-$membre = getUsers($db, $_SESSION['membre']['login']);
-extract($membre);
-
-var_dump($membre["donnees"]);
 ?>
-
 
 <body>
 
@@ -23,6 +17,13 @@ var_dump($membre["donnees"]);
     <h1 class="h1-custom">Mon espace personnel</h1>
     <a href="" class="marginright2 white right a-custom"><i class="fa fa-edit fa-2x"></i></a>
 </div>
+    
+<?php 
+    
+$membre = getUsers($db, $_SESSION['membre']['login']);
+extract($membre);
+?>
+
     
 <!-- formulaire de modification -->
     <input type="hidden" name="id" value="<?php echo intval($_GET["id"]); ?>">
@@ -43,12 +44,28 @@ var_dump($membre["donnees"]);
     </div>
   
 <!--     <input type="submit" class="center" id="btnModifCompte" value="Sauvegarder modification">   -->
-
+  
     
+    
+    
+<!-- Affichage des dernière interventions terminée -->
 <div class="lastIntervention white">
     <h1>Dernière intervention</h1>
 </div>
     
+<?php
+    $taches = getTaches($db, $_SESSION['membre']['login']);
+
+while($tache = $taches["donnees"]->fetch()) {
+ if ($tache["assignea"] == $_SESSION['membre']['login'] && $tache["etat"] == "tachesEffectuee") { 
+     
+     $id = $tache["id"];
+     $societe = $tache["societe"]; 
+     $adresse = $tache["adresse"];
+     $etat = $tache["etat"];//si tacheeffectue pas de tache à afficher si non affiche
+     
+    ?>
+        
 <input type="search" name="Recherche" placeholder="Rechercher" class="custom-input"/> <!-- pseudo -->
     
     <div class="intervention">
@@ -56,24 +73,17 @@ var_dump($membre["donnees"]);
             <div class="row">
                 <p class="fontweight100">Vendredi 21 Avril 2017</p> 
                 <img src="../assets/icon/arrow-left.png" class="arrow-left">
-                <p><input type="button" name="pseudo" value="" class="importanceRed"><b> - </b> ID : 1 - Société - Lieux</p>
+                <p><input type="button" name="pseudo" value="" class="importanceRed"><b> - </b> <?= $id ?> :  - <?= $societe ?> - <?= $adresse?></p>
                 
             </div>            
         </a>
         <div class="retourligne"></div>
     </div>
-    <div class="intervention">
-        <a href="intervenir.php"> 
-            <div class="row">
-                <p class="fontweight100">Vendredi 21 Avril 2017</p>  
-                 <img src="../assets/icon/arrow-left.png" class="arrow-left">
-                <p><input type="button" name="pseudo" value="" class="importanceVert"><b> - </b> ID : 1 - Société - Lieux</p>
-               
-            </div>            
-        </a>
-        <div class="retourligne"></div>
-    </div>
    
+<?php
+ }
+}
+?>    
     
 <?php include('menu.php'); ?>
 
