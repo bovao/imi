@@ -251,6 +251,32 @@ function getTaches($db, $login) {
 }
 
 
+function getTacheEnCours($db){
+  $sql = "SELECT * FROM taches WHERE etat = 'tacheEnCours' ";
+  try {
+    $retour["donnees"] = $db->query($sql);
+    $retour["statut"] = "ok";
+  } catch (PDOException $erreur) {
+    $retour["donnees"] = $erreur->getMessage();
+    $retour["statut"] = "erreur";
+  }
+  return $retour;
+}
+
+function getTacheEffectuee($db, $login){
+  $sql = "SELECT * FROM taches WHERE etat = 'tacheEffectuee' ";
+  try {
+    $retour["donnees"] = $db->query($sql);
+    $retour["statut"] = "ok";
+  } catch (PDOException $erreur) {
+    $retour["donnees"] = $erreur->getMessage();
+    $retour["statut"] = "erreur";
+  }
+  return $retour;
+}
+
+
+
 function getUsers($db, $login) {
   $sql = "SELECT * FROM membre";
       if ($login != NULL) {
@@ -271,6 +297,9 @@ function getUsers($db, $login) {
     echo $erreur->getMessage();
   }
 }
+
+
+
 
 
 

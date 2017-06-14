@@ -12,13 +12,15 @@ $db = connect();
 
     
 <div class="mainAccueil">
-        <select id="SelectTypeTache">
-            <option disabled selected value> -- Filtrer par Type -- </option>
-            <option>Tâches crée</option>
-            <option>Tâches en cours</option>
-            <option>Tâche terminée</option>
-        </select>
-
+<form method="post" action="">
+    <select name="trier" id="SelectTypeTache">
+        <option disabled selected value> -- Filtrer par -- </option>
+        <option value="tri_encours" >Tâches en cours</option>
+        <option value="tri_terminee">Tâche terminée</option>
+    </select>
+    <input type="submit" valu="ok"/>
+</form>
+    
     <div class="Contentsearch">
         <span class="fa fa-search"></span>
         <input type="search" id="rechercher" placeholder="Rechercher une tâche">
@@ -26,17 +28,27 @@ $db = connect();
 </div>
     
     
-<h1 class="custom-h1">Liste des tâches crée</h1>
+<h1 class="custom-h1">Liste des tâches</h1>
 
 <div class="ContentSecretaire">
     
+<!-- traitement des données --> 
     <?php 
-    function listeTaches($db) {
+function listeTaches($db) {
       
   $contenu = array();
   $contenu["corps"] = "";
-
-  $donnees = getTaches($db);
+     //tri tache en cours
+    if(!empty($_POST["trier"]) && $_POST["trier"] == "tri_encours"){
+        $donnees = getTacheEnCours($db);
+    }
+     //tri tache effectuee
+    if(!empty($_POST["trier"]) && $_POST["trier"] == "tri_terminee"){
+        $donnees = getTacheEffectuee($db);
+    }
+    else if(empty($_POST["trier"])) {
+        $donnees = getTaches($db);
+    }
 
   if($donnees["statut"] == "ok") {
       
@@ -72,6 +84,7 @@ function confirmationSuppression(){
 }
 </script>
 
+<!-- Affichage des données --> 
 <?php
     $contenu["corps"].="
         <div class='taches'>
@@ -82,7 +95,7 @@ function confirmationSuppression(){
         </div>
         
         <div class='row'>
-            <p><input type='button' name='pseudo' class='importanceRed'><b> - </b> ID : $id - $societe - $client - $adresse</p>
+            <p><input type='button' name='pseudo' class='importanceRed'><b> - </b> ID : $id - $societe - $client - $etat</p>
             <p class='left65 top10px'><img src='../assets/icon/arrow-left.png' class='arrow-left'></p>
         </div>
         <p class='left70 top-20'>$libelle</p>
