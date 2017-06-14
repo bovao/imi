@@ -7,7 +7,6 @@ $db = connect();
   // si je rentre en GET (sans soumission de formulaire), je récupère simplement les données de l'utilisateur passé en get
 $tache = getDetailsTache($db, $_GET["id"]);
 extract($tache);
-
 ?>
     
 

@@ -9,7 +9,7 @@ $db = connect();
 
 $page = listeNomUtilisateurs($db);
 
-    
+
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     //societe, client, adresse, duree, libelle, secteur, assignea, etat, file, descriptionTache
   $societe = verifLongueur("societe", 3);
@@ -45,7 +45,7 @@ if(empty($erreur)) {
   } catch (PDOException $erreur) {
         echo $erreur->getMessage();
     }
-  } else {}
+  }
 }
 ?>
 
@@ -65,18 +65,18 @@ if(!empty($erreur)) {
 
 <div id="">
      <!-- Formulaire de connexion -->
-    <form name="formulaireAjoutTache" action="" method="POST" id="formAjoutTache">
+    <form name="formulaireAjoutTache" action="#" method="POST" id="formAjoutTache">
         <div class="row">
-           <input <?php if(isset($erreurs['societe'])) echo "class='erreur'"; ?>type="text" name="societe" value="<?php if(isset($societe)) echo $societe; ?>" placeholder="Société" class="custom-input" /> <!-- pseudo -->
-           <input <?php if(isset($erreurs['client'])) echo "class='erreur'"; ?>type="text" name="client" value="<?php if(isset($client)) echo $client; ?>" placeholder="Nom client" class="custom-input" /> <!-- pseudo -->
-           <input <?php if(isset($erreurs['adresse'])) echo "class='erreur'"; ?>type="text" name="adresse" value="<?php if(isset($adresse)) echo $adresse; ?>" placeholder="Lieux" class="custom-input" /> <!-- pseudo -->            
+           <input <?php if(isset($erreurs['societe'])) echo "class='erreur custom-input'"; ?>type="text" name="societe" value="<?php if(isset($societe)) echo $societe; ?>" placeholder="Société" class="custom-input" /> <!-- pseudo -->
+           <input <?php if(isset($erreurs['client'])) echo "class='erreur custom-input'"; ?>type="text" name="client" value="<?php if(isset($client)) echo $client; ?>" placeholder="Nom client" class="custom-input" /> <!-- pseudo -->
+           <input <?php if(isset($erreurs['adresse'])) echo "class='erreur  custom-input'"; ?>type="text" name="adresse" value="<?php if(isset($adresse)) echo $adresse; ?>" placeholder="Lieux" class="custom-input" /> <!-- pseudo -->            
             
            <label for="duree">Durée :</label>
-            <input <?php if(isset($erreurs['duree'])) echo "class='erreur'"; ?>value="<?php if(isset($duree)) echo $duree; ?>" type="time" name="duree" placeholder="Durée" class="custom-input"/> <!-- mdp -->
+            <input <?php if(isset($erreurs['duree'])) echo "class='erreur  custom-input'"; ?>value="<?php if(isset($duree)) echo $duree; ?>" type="time" name="duree" placeholder="Durée" class="custom-input"/> <!-- mdp -->
         </div>
             <p></p> 
         <div class="block">
-            <input <?php if(isset($erreurs['libelle'])) echo "class='erreur'"; ?> value="<?php if(isset($libelle)) echo $libelle; ?>" type="text" name="libelle" placeholder="Libelle du problème" class="custom-input"/> <!-- email -->        
+            <input <?php if(isset($erreurs['libelle'])) echo "class='erreur  custom-input'"; ?> value="<?php if(isset($libelle)) echo $libelle; ?>" type="text" name="libelle" placeholder="Libelle du problème" class="custom-input"/> <!-- email -->        
             <select class="custom-select" name="secteur">
                 <option selected disabled>-- Secteur -- </option>
                 <option value="74">74 (Haute-savoie)</option>
@@ -91,7 +91,7 @@ if(!empty($erreur)) {
             <select class="custom-select" name="etat">
                 <option selected disabled>-- Etat / Statut -- </option>
                 <option value="tacheEnCours">Tâches en cours</option>
-                <option value="tachesEffectuee">Tâches effectuée</option>
+                <option value="tacheEffectuee">Tâches effectuée</option>
             </select>
         </div>
             <p></p>
@@ -99,7 +99,7 @@ if(!empty($erreur)) {
         <div class="row ">
 
             
-            <input <?php if(isset($erreurs['file'])) echo "class='erreur'"; ?> value="<?php if(isset($file)) echo $file; ?>" type="file" name="file" id="file" class="inputfile top40px"/><!-- Photo -->
+            <input <?php if(isset($erreurs['file'])) echo "class='erreur custom-input'"; ?> value="<?php if(isset($file)) echo $file; ?>" type="file" name="file" id="file" class="inputfile top40px"/><!-- Photo -->
             
             <textarea placeholder="Votre message..." class="custom-textarea" name="descriptionTache"></textarea>
             <input type="submit" value="Ajouter" class="btnAjoutTache"/>  <!-- btn inscription -->
